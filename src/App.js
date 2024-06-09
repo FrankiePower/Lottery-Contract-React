@@ -24,6 +24,7 @@ class App extends React.Component {
     this.setState({ manager, players, balance });
   }
 
+  // handles the on submit function
   onSubmit = async (event) => {
     event.preventDefault();
 
@@ -39,6 +40,7 @@ class App extends React.Component {
     this.setState({ message: "You have been entered!" });
   };
 
+  // handles the on click function
   onClick = async () => {
     const accounts = await web3.eth.getAccounts();
 
