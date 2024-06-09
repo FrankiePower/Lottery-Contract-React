@@ -5,10 +5,9 @@ import lottery from "./lottery";
 //Good place to start is to try to get the address of the manager.
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { manager: "" };
-  }
+  state = {
+    manager: "",
+  };
 
   // automatically called once component is rendered.
   async componentDidMount() {
