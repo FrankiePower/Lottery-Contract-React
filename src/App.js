@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import web3 from "./web3";
 import lottery from "./lottery";
 
@@ -10,6 +11,7 @@ class App extends React.Component {
     players: [],
     balance: "",
     value: "",
+    message: "",
   };
 
   // automatically called once component is rendered.
@@ -26,17 +28,19 @@ class App extends React.Component {
 
     const accounts = await web3.eth.getAccounts();
 
-    await lottery.methods
-      .enter()
-      .send({
-        from: accounts[0],
-        value: web3.utils.toWei(this.state.value, "ether"),
-      });
+    this.setState({ message: "Waiting on transaction success..." });
+
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei(this.state.value, "ether"),
+    });
+
+    this.setState({ message: "You have been entered!" });
   };
 
   render() {
     return (
-      <div>
+      <div className="lottery-div">
         <h2>Lottery Contract</h2>
         <p>
           This contract is managed by {this.state.manager}. There are currently{" "}
@@ -57,6 +61,8 @@ class App extends React.Component {
           </div>
           <button>Enter</button>
         </form>
+        <hr />
+        <h1>{this.state.message}</h1>
       </div>
     );
   }
